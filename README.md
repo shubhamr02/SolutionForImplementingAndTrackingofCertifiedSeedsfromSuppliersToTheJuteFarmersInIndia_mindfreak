@@ -4,7 +4,7 @@
 This repository shows how to implement tracking of seeds from suppliers to farmers.
 
 ## Deployment
-
+- upload sihdemo.sql to localhost/phpmyadmin
 - navigate to htdocs folder 
 - create a new folder
 - place all files in that new folder
