@@ -88,16 +88,6 @@ $result = mysqli_query($conn,"SELECT * FROM supplier where email='$user'");
 
       </div>
      <div class="content">
-      <div class="alert alert-info alert-dismissible fade show" role="alert">
-        <h5 class="alert-heading">Instructions</h5>
-          1. Start with adding your inventory using<strong> Add Inventory</strong>.<br>
-          2. Now start adding yourseed detail using<strong> Add Seed Details</strong>.<br>
-          3. To procure new seeds use<strong> Add Procurement</strong>.<br>
-          4. To log new sales details use<strong> Add Sale</strong>.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
         <div class="row">
           <div class="col-lg-4 col-md-6 col-sm-6">
             <div class="card card-stats">

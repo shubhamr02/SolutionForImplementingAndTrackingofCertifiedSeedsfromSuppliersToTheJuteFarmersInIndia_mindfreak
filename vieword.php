@@ -123,8 +123,8 @@ if (isset($_GET['send'])){
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">View Orders From Supplier</h4>
-                 <p class="card-category">24 Hours Record</p>
+                <h4 class="card-title">View Procurements From Supplier</h4>
+                 <p class="card-category">Seeds procured by suppliers in 24 Hours Record</p>
               </div>
               <div class="card-body " style="overflow: scroll;">
                 <div class="table-responsive">

@@ -4,13 +4,15 @@ include_once 'database.php';
 if (isset($_SESSION['user'])) {
 $user=$_SESSION['user'];
 $result = mysqli_query($conn,"SELECT * FROM supplier where email='$user'");
-$row = mysqli_fetch_assoc($result);
-$user_status=$row['status'];
-$token=$row['token'];
-$user_type=$row['type'];
-$result2 = mysqli_query($conn,"SELECT * FROM inventory where email='$user'");
-if($user_type=='Official')
+ $row = mysqli_fetch_assoc($result);
+ $user_status=$row['status'];
+ $token=$row['token']; 
+ echo "$user";
+  $user_type=$row['type'];
+ if($user_type!='Official' && $user_status=='Active')
  {
+$result3 = mysqli_query($conn,"SELECT * FROM inventory where email='$user'");
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,10 +30,10 @@ if($user_type=='Official')
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <!-- CSS Files -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
+  <link href="sassets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="sassets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="assets/demo/demo.css" rel="stylesheet" />
+  <link href="sassets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
 </head>
@@ -42,8 +44,8 @@ if($user_type=='Official')
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
-      
-      <?php 
+     
+         <?php 
       if($user_type=='Official')
       {
      include('offsidebar.php');
@@ -73,7 +75,7 @@ if($user_type=='Official')
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
-           <?php include('action.php');?>
+          <?php include('action.php');?>
         </div>
       </nav>
       <!-- End Navbar -->
@@ -84,7 +86,7 @@ if($user_type=='Official')
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">Seed Inventory</h4>
+                <h4 class="card-title">Inventory</h4>
                  <p class="card-category">24 Hours Record</p>
               </div>
               <div class="card-body " style="overflow: scroll;">
@@ -93,7 +95,7 @@ if($user_type=='Official')
                     <thead class=" text-primary">
                      <tr> 
                       <th>Supplier Name</th>
-                       <th>Seed Type</th> 
+                      <th>Seed Type</th> 
                       <th>Seed Name</th> 
                       <th>Qty</th> 
                       <th>Germination</th> 
@@ -106,12 +108,12 @@ if($user_type=='Official')
                     </tr> 
                   </thead> 
                   <tbody> 
-                    <?php 
+                   <?php 
 
                    
-                    if ($result2->num_rows > 0) {
+                    if ($result3->num_rows > 0) {
                     // output data of each row
-                    while($row1 = $result2->fetch_assoc()) {
+                    while($row1 = $result3->fetch_assoc()) {
 
                     
 
@@ -134,11 +136,11 @@ if($user_type=='Official')
                          echo" </tr>"; }
                         }
                         ?>
-                  </tbody> 
+                             </tbody> 
                   <tfoot> 
                     <tr>
                    <th>Supplier Name</th>
-                    <th>Seed Type</th> 
+                      <th>Seed Type</th> 
                       <th>Seed Name</th> 
                       <th>Qty</th> 
                       <th>Germination</th> 
@@ -160,16 +162,16 @@ if($user_type=='Official')
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="assets/js/core/jquery.min.js"></script>
-  <script src="assets/js/core/popper.min.js"></script>
-  <script src="assets/js/core/bootstrap.min.js"></script>
-  <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <script src="sassets/js/core/jquery.min.js"></script>
+  <script src="sassets/js/core/popper.min.js"></script>
+  <script src="sassets/js/core/bootstrap.min.js"></script>
+  <script src="sassets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
   <!-- Chart JS -->
-  <script src="assets/js/plugins/chartjs.min.js"></script>
+  <script src="sassets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
-  <script src="assets/js/plugins/bootstrap-notify.js"></script>
+  <script src="sassets/js/plugins/bootstrap-notify.js"></script>
    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
   <script>
@@ -179,8 +181,8 @@ if($user_type=='Official')
     });
   </script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="assets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
-  <script src="assets/demo/demo.js"></script>
+  <script src="sassets/js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script><!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
+  <script src="sassets/demo/demo.js"></script>
 </body>
 
 </html>

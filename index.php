@@ -119,12 +119,18 @@ if(isset($_POST['submit']))
                         <input type="number" class="form-control col-sm-12 p-3 mb-3 font-awesome" name="test" id="test" placeholder="Enter Bag No or Lot No">
                       </div>
                       <div class="col-sm-12">
-                      <button type="submit" name="submit" id="submit" class="btn btn-outline-warning font-weight-bolder btn-block">Verify</button>
+                      <button type="submit" name="submit" id="submit" class="btn btn-outline-primary font-weight-bolder btn-block">Verify</button>
                       </div>
                     </div>
                   </form>
               </div>
+              <br>
+              <div id="show" class="mb-3 text-center">
+                <a  href="yieldsub.php"role="button" id="farmer" class="btn btn-lg btn-secondary " >Grievance & Redressal </a>
+              </div>
+              
 </div>
+
 <footer class="pt-4 my-md-5 pt-md-5 border-top">
 
    
