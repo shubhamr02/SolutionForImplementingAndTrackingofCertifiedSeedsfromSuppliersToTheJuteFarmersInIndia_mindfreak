@@ -8,6 +8,7 @@ $result = mysqli_query($conn,"SELECT * FROM supplier where email='$user'");
  $user_status=$row['status'];
  $token=$row['token'];
   $user_type=$row['type'];
+  
 $result3 = mysqli_query($conn,"SELECT * FROM sale where email='$user'");
 if($user_type!='Official' && $user_status=='Active')
  {
@@ -112,14 +113,12 @@ if($user_type!='Official' && $user_status=='Active')
                   <tbody> 
                    <?php 
 
-                   
+                    
                     if ($result3->num_rows > 0) {
                     // output data of each row
                     while($row1 = $result3->fetch_assoc()) {
-
-                    
-
-                      echo" <tr>"; 
+                      $temp = $row1['fphone'];
+                      echo" <tr>";
                       echo"<td>".$row1['fname']."</td>";
                       echo"<td>".$row1['seedtype']."</td>"; 
                       echo"<td>".$row1['seed']."</td>"; 
@@ -132,13 +131,17 @@ if($user_type!='Official' && $user_status=='Active')
                       echo"<td>".$row1['pincode']."</td>";
                       echo"<td>".$row1['state']."</td>";
                       $rfv = "https://track.aftership.com/?tracking-numbers=".$row1['trackno'];
+                      $msg = "OTP%202789%20To%20track%20your%20package%20click%20below%20link%20".$rfv;
+                      $link = "https://api.msg91.com/api/sendotp.php?authkey=337753AkSvni1oUi5f27a8cdP1&mobile=91".$row1['fphone']."&message=".$msg."&sender=senderid&otp=2789";
                       ?>
                       <td><a href="<?php echo $rfv; ?>" role="button" class="btn btn-block btn-primary" target="_blank">Track </a></td>
-                      <td><a role="button" id="msgBtn" class="btn btn-block btn-primary "data-toggle="modal" data-target="#MsgModal" > SMS </a></td> -->
+                      <td><a href='<?php echo $link; ?>' role='button' class='btn btn-block btn-primary' target="_blank"> SMS </a></td>
                       <?php
-                         echo "</tr>"; 
+                      ?>
+                      <!-- <td><a href="viewsale_s.php" role="button" class="btn btn-block btn-primary"> SMS </a></td> -->
+                      <?php
+                        echo "</tr>"; 
                        }
-                       
                         }
                         ?>
                      </tbody> 

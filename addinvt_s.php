@@ -277,7 +277,7 @@ $result3 = mysqli_query($conn,"SELECT ssid,seed,seedtype,lot,germination,purity,
                                    
                                        <div class="input-group">
                               <div class="custom-file">
-                                     <input type="file" name="myfile" id="myfile" class="form-control form-control-sm mr-1" 
+                                     <input type="file" name="myfile" id="myfile" class="custom-file-input form-control form-control-sm mr-1" 
                                     aria-describedby="inputGroupFileAddon01" required>
                                      <label class="custom-file-label" for="myfile">Choose file</label>
                                        </div>

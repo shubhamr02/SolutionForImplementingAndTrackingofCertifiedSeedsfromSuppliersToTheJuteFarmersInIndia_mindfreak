@@ -8,6 +8,7 @@ $result = mysqli_query($conn,"SELECT * FROM supplier where email='$user'");
  $user_status=$row['status'];
  $token=$row['token'];
   $user_type=$row['type'];
+  $supphone = $row['phone'];
  $sorg=$row['org'];
  $phone=$row['phone'];
  $contactp=$row['contactp'];
@@ -35,19 +36,47 @@ if(isset($_POST['submit']))
       $result = "INSERT INTO sale (org, email, fname, seedtype, seed, qty, fphone, supplier, lot, bag, faddress, pincode, state, mode, trackno, created) VALUES ('$org', '$email', '$fname', '$seedtype', '$seed', '$qty', '$fphone', '$supplier', '$lot', '$bag', '$faddress', '$pincode', '$state', '$mode', '$trackno', now())";
     
 
+    $rfv = "https://track.aftership.com/?tracking-numbers=".$trackno;
+    //$msg = "OTP%202789%20To%20track%20your%20package%20click%20below%20link%20".$rfv;
+                    
     if ($conn->query($result) === TRUE) 
       {
+         //message to farrmer
+         $msg="Your request for verification has been accepted and your Inspection Officer will contact you soon.";
+
+        $username = "akshayrcf@gmail.com";
+      $hash = "fc7b8acb4b143ca674ae71f4a4484ddc6921c1434cc1e962b07cec9910099e93";
+// Config variables. Consult http://api.textlocal.in/docs for more info.
+  $test = "0";
+
+  // Data for text message. This is the text message data.
+  $sender = "TXTLCL"; // This is who the message appears to be from.
+  $numbers = $fphone; // A single number or a comma-seperated list of numbers
+  $message = $msg;
+  // 612 chars or less
+  // A single number or a comma-seperated list of numbers
+  $message = urlencode($message);
+  $data = "username=".$username."&hash=".$hash."&message=".$message."&sender=".$sender."&numbers=".$numbers."&test=".$test;
+  $ch = curl_init('http://api.textlocal.in/send/?');
+  curl_setopt($ch, CURLOPT_POST, true);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+  $result = curl_exec($ch); // This is the result from the API
+  curl_close($ch);
+
+
           header("Location: viewsale_s.php");
         }
      else 
       {
          echo "Error: " . $result . "<br>" . $conn->error;
       }
+
+      
 }
 
 $result2 = mysqli_query($conn,"SELECT ssid,seed,lot,bag,qty FROM seeds group by seed");
 $result3 = mysqli_query($conn,"SELECT ssid,seed,seedtype,lot,germination,purity,bag,qty FROM seeds group by seed");
-
 
 ?>
 <!DOCTYPE html>
@@ -126,7 +155,12 @@ $result3 = mysqli_query($conn,"SELECT ssid,seed,seedtype,lot,germination,purity,
                 <h4 class="card-title">Add Sales</h4>
                 
               </div>
+
               <div class="card-body " >
+                <div class="alert alert-info" role="alert">
+                  <strong>Farmer will be notified about his package delivery and will get the tracking link in the SMS.</strong>
+                  
+                </div>
                  <form action="" method="post" enctype="multipart/form-data">
                        <div class="row">
                             <div class="form-group col-sm-4" style="font-size: large; ">
@@ -231,10 +265,11 @@ $result3 = mysqli_query($conn,"SELECT ssid,seed,seedtype,lot,germination,purity,
                                 <input type="text" name="trackno" id="trackno" value="" class="form-control form-control-sm mr-1" >
                             </div>
                             </div>
-                           
+                         
+                        <br>
                         
-                        &nbsp;&nbsp; &nbsp;&nbsp;  <button type="submit" name="submit" id="submit" class="btn btn-primary" >Add Details</button>
-                            
+                        &nbsp;&nbsp; &nbsp;&nbsp;  <button  type="submit" name="submit" id="submit" class="btn btn-primary">Add Details</button>
+                        
                        
                     </form>  
                

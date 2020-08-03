@@ -126,7 +126,7 @@ if(isset($_POST['submit']))
               </div>
               <br>
               <div id="show" class="mb-3 text-center">
-                <a  href="yieldsub.php"role="button" id="farmer" class="btn btn-lg btn-secondary " >Grievance & Redressal </a>
+                <a  href="yieldsub.php"role="button" id="farmer" class="btn btn-lg btn-secondary " >Farmer </a>
               </div>
               
 </div>
